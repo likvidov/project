@@ -21,7 +21,7 @@ const asking = function () {
   screens = prompt('Какие типы экранов нужно разработать?', 'Простые');
 
   do {
-    screenPrice = prompt('Сколько будет стоить данная работа?');
+    screenPrice = Number(prompt('Сколько будет стоить данная работа?'));
   } while (!isNumber(screenPrice));
 
   adaptive = confirm('Нужен ли адаптив на сайте?');
@@ -53,7 +53,7 @@ const getAllServicePrices = function () {
       service2 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
     }
     do {
-      servicePrice = prompt('Сколько будет стоить данная работа?');
+      servicePrice = Number(prompt('Сколько будет стоить данная работа?'));
     } while (!isNumber(servicePrice));
     sum += +servicePrice;
   }
