@@ -1,28 +1,11 @@
-let lang = prompt('Русский или Английский') ? 'ru' : 'en'
-const dayofweek = {
-  'ru': ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
-  'en': ['mn', 'ts', 'wd', 'th', 'fr', 'st', 'sn']
-};
+const get = function (line) {
+  if (typeof line !== 'string') return 'Аргумент не является строкой';
+  let str = line.trim();
+  if (str.length > 30) return str.slice(0, 29) + '...';
 
-if (lang == 'ru') {
-  dayofweek['ru'];
-}
-if (lang == 'en') {
-  dayofweek['en'];
+  return str;
 }
 
-switch (lang) {
-  case 'ru':
-    dayofweek['ru'];
-    break;
-  case 'en':
-    dayofweek['en'];
-    break;
-}
-
-console.log(dayofweek[lang])
-
-let namePerson = 'Артем'
-
-namePerson === 'Артем' ? console.log('директор') : console.log('студент')
-namePerson === 'Александр' ? console.log('преподаватель') : console.log('студент')
+console.log(get(213))
+console.log(get(' Lorem ipsum dolor sit amet. '));
+console.log(get('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, temporibus?'));
