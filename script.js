@@ -1,9 +1,5 @@
 'use strict';
 
-const isNumber = function (num) {
-  return !isNaN(parseFloat(num)) && isFinite(num);
-}
-
 const appData = {
   title: '',
   screens: '',
@@ -15,13 +11,25 @@ const appData = {
   servicePercentPrice: 0,
   service1: '',
   service2: '',
+  start: function () {
+    appData.asking();
+    appData.allServicePrices = appData.getAllServicePrices();
+    appData.fullPrice = appData.getFullPrice();
+    appData.servicePercentPrice = appData.getServicePercentPrices();
+    appData.title = appData.getTitle();
+
+    appData.logger();
+  },
+  isNumber: function (num) {
+    return !isNaN(parseFloat(num)) && isFinite(num);
+  },
   asking: function () {
     appData.title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
     appData.screens = prompt('Какие типы экранов нужно разработать?', 'Простые, сложные');
 
     do {
       appData.screenPrice = Number(prompt('Сколько будет стоить данная работа?', '10000'));
-    } while (!isNumber(appData.screenPrice));
+    } while (!appData.isNumber(appData.screenPrice));
 
     appData.adaptive = confirm('Нужен ли адаптив на сайте?');
   },
@@ -39,10 +47,11 @@ const appData = {
 
       do {
         price = Number(prompt('Сколько будет стоить данная работа?', '1000'));
-      } while (!isNumber(price));
+      } while (!appData.isNumber(price));
 
       sum += +price;
     }
+
     return sum;
   },
   getFullPrice: function () {
@@ -66,18 +75,9 @@ const appData = {
     }
   },
   logger: function () {
-    for (let key in appData) {
-      console.log(key);
-    }
+    console.log(appData.fullPrice);
+    console.log(appData.servicePercentPrice);
   },
-  start: function () {
-    appData.asking();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle();
-    appData.logger();
-  }
 }
 
 appData.start();
