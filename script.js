@@ -57,7 +57,11 @@ const appData = {
         price = Number(prompt('Сколько будет стоить данная работа?', '1000'));
       } while (!appData.isNumber(price));
 
-      appData.services[name + i] = +price;
+      if (appData.services.hasOwnProperty(name)) {
+        appData.services[name + (i + 1)] = +price;
+      } else {
+        appData.services[name] = +price;
+      }
     }
 
     appData.adaptive = confirm('Нужен ли адаптив на сайте?');
@@ -95,6 +99,7 @@ const appData = {
     console.log(appData.fullPrice);
     console.log(appData.servicePercentPrice);
     console.log(appData.screens);
+    console.log(appData.services);
   },
 }
 
