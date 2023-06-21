@@ -1,83 +1,30 @@
-'use strict';
+const books = document.querySelector('.books')
+const booksList = document.querySelectorAll('.book')
 
-const appData = {
-  title: '',
-  screens: '',
-  screenPrice: 0,
-  adaptive: true,
-  rollback: 10,
-  allServicePrices: 0,
-  fullPrice: 0,
-  servicePercentPrice: 0,
-  service1: '',
-  service2: '',
-  start: function () {
-    appData.asking();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle();
+//1
+booksList[0].before(booksList[1])
+booksList[0].after(booksList[4])
+books.append(booksList[2])
 
-    appData.logger();
-  },
-  isNumber: function (num) {
-    return !isNaN(parseFloat(num)) && isFinite(num);
-  },
-  asking: function () {
-    appData.title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
-    appData.screens = prompt('Какие типы экранов нужно разработать?', 'Простые, сложные');
+//2
+document.querySelector('body').style.backgroundImage = 'url(/image/you-dont-know-js.jpg)';
 
-    do {
-      appData.screenPrice = Number(prompt('Сколько будет стоить данная работа?', '10000'));
-    } while (!appData.isNumber(appData.screenPrice));
+//3
+booksList[4].querySelector('h2>a').textContent = 'Книга 3. this и Прототипы Объектов';
 
-    appData.adaptive = confirm('Нужен ли адаптив на сайте?');
-  },
-  getAllServicePrices: function () {
-    let sum = 0;
+//4
+document.querySelector('.adv').remove();
 
-    for (let i = 0; i < 2; i++) {
-      let price;
+//5
+const book2 = booksList[0].querySelectorAll('ul>li');
+book2[1].after(book2[3], book2[6], book2[8], book2[4], book2[5], book2[7], book2[9])
 
-      if (i === 0) {
-        appData.service1 = prompt('Какой дополнительный тип услуги нужен?', 'Админка');
-      } else if (i === 1) {
-        appData.service2 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
-      }
+const book5 = booksList[5].querySelectorAll('ul>li');
+book5[1].after(book5[9], book5[3], book5[4]);
+book5[8].before(book5[5])
 
-      do {
-        price = Number(prompt('Сколько будет стоить данная работа?', '1000'));
-      } while (!appData.isNumber(price));
-
-      sum += +price;
-    }
-
-    return sum;
-  },
-  getFullPrice: function () {
-    return +appData.screenPrice + appData.allServicePrices;
-  },
-  getServicePercentPrices: function () {
-    return appData.fullPrice - (appData.fullPrice * (appData.rollback / 100))
-  },
-  getTitle: function () {
-    return appData.title.trim()[0].toUpperCase() + appData.title.trim().substr(1).toLowerCase();
-  },
-  getRollbackMessage: function (price) {
-    if (price >= 30000) {
-      return 'Даем скидку в 10%';
-    } else if (price >= 15000 && price < 30000) {
-      return 'Даем скидку в 5%';
-    } else if (price >= 0 && price < 15000) {
-      return 'Скидка не предусмотрена';
-    } else {
-      return 'Что то пошло не так';
-    }
-  },
-  logger: function () {
-    console.log(appData.fullPrice);
-    console.log(appData.servicePercentPrice);
-  },
-}
-
-appData.start();
+//6 
+const book6 = booksList[2].querySelectorAll('ul>li');
+const chare8 = book6[0].cloneNode();
+chare8.textContent = 'Глава 8: За пределами ES6';
+book6[8].after(chare8);
