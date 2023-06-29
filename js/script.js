@@ -4,6 +4,8 @@ const title = document.getElementById('title');
 const buttonPlus = document.querySelector('.screen-btn');
 const otherItemsPercent = document.querySelectorAll('.other-items.percent');
 const otherItemsNumber = document.querySelectorAll('.other-items.number');
+const cmsBtn = document.getElementById('cms-open');
+const hiddenCmsVariants = document.querySelector('.hidden-cms-variants');
 
 const inputRange = document.querySelector('.rollback input[type=range]');
 const inputRangeValue = document.querySelector('.rollback span.range-value');
@@ -39,6 +41,16 @@ const appData = {
     resetBtn.addEventListener('click', this.reset.bind(appData));
     buttonPlus.addEventListener('click', this.addScreenBlock);
     inputRange.addEventListener('change', this.showRollback.bind(appData));
+    cmsBtn.addEventListener('click', () => {
+      hiddenCmsVariants.style.display = hiddenCmsVariants.style.display == 'none' ? 'flex' : 'none'
+    })
+    hiddenCmsVariants.addEventListener('change', () => {
+      if (hiddenCmsVariants.children[0].children[0].value == 'other') {
+        hiddenCmsVariants.children[1].style.display = 'flex';
+      } else {
+        hiddenCmsVariants.children[1].style.display = 'none';
+      }
+    })
   },
   addTitle: function () {
     document.title = title.textContent;
@@ -60,6 +72,9 @@ const appData = {
     this.resetDate();
     this.showResult();
     this.changeDisabledInput();
+    cmsBtn.checked = false;
+    hiddenCmsVariants.style.display = 'none';
+    hiddenCmsVariants.children[0].children[0].selectedIndex = 0;
   },
   resetDate: function () {
     this.screens = [];
@@ -81,19 +96,6 @@ const appData = {
       item.children[1].children[0].value = '';
     })
   },
-  showRollback: function () {
-    inputRangeValue.textContent = +inputRange.value + "%";
-    this.rollback = +inputRange.value;
-    this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
-    totalCountRollback.value = this.servicePercentPrice;
-  },
-  showResult: function () {
-    total.value = this.screenPrice;
-    totalCountOther.value = this.servicePricesPercent + this.servicePricesNumber;
-    fullTotalCount.value = this.fullPrice;
-    totalCountRollback.value = this.servicePercentPrice;
-    totalCount.value = this.screenCount;
-  },
   changeDisabledInput: function () {
     screens.forEach(item => {
       item.children[0].children[0].disabled = !item.children[0].children[0].disabled;
@@ -108,6 +110,19 @@ const appData = {
     buttonPlus.style.display = buttonPlus.style.display == '' ? 'none' : '';
     startBtn.style.display = startBtn.style.display == '' ? 'none' : '';
     resetBtn.style.display = resetBtn.style.display == '' ? 'none' : '';
+  },
+  showRollback: function () {
+    inputRangeValue.textContent = +inputRange.value + "%";
+    this.rollback = +inputRange.value;
+    this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
+    totalCountRollback.value = this.servicePercentPrice;
+  },
+  showResult: function () {
+    total.value = this.screenPrice;
+    totalCountOther.value = this.servicePricesPercent + this.servicePricesNumber;
+    fullTotalCount.value = this.fullPrice;
+    totalCountRollback.value = this.servicePercentPrice;
+    totalCount.value = this.screenCount;
   },
   addScreens: function () {
     screens = document.querySelectorAll('.screen');
@@ -173,6 +188,10 @@ const appData = {
 
     this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
     this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
+
+    if (hiddenCmsVariants.children[0].children[0].value == '50') {
+      this.fullPrice += this.fullPrice / 2;
+    }
   },
   getServicePercentPrices: function () {
     this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
