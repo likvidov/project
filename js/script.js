@@ -35,10 +35,10 @@ const appData = {
   init: function () {
     this.addTitle();
 
-    startBtn.addEventListener('click', this.start.bind(appData));
-    resetBtn.addEventListener('click', this.reset.bind(appData));
+    startBtn.addEventListener('click', this.start.bind(this));
+    resetBtn.addEventListener('click', this.reset.bind(this));
     buttonPlus.addEventListener('click', this.addScreenBlock);
-    inputRange.addEventListener('change', this.showRollback.bind(appData));
+    inputRange.addEventListener('change', this.showRollback.bind(this));
   },
   addTitle: function () {
     document.title = title.textContent;
